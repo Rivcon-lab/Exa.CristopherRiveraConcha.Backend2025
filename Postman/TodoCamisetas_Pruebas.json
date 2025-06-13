@@ -1,0 +1,206 @@
+{
+    "info": {
+      "name": "TodoCamisetas - Pruebas Seguras",
+      "_postman_id": "TODOCAMISETAS-API-PRUEBAS",
+      "description": "Colección profesional para pruebas seguras y limpias sobre la API TodoCamisetas.",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+      {
+        "name": "GET todas las camisetas",
+        "request": {
+          "method": "GET",
+          "header": [],
+          "url": { "raw": "http://localhost/todocamisetas-api/api/camisetas", "protocol": "http", "host": ["localhost"], "path": ["todocamisetas-api", "api", "camisetas"] }
+        }
+      },
+      {
+        "name": "POST nueva camiseta",
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "exec": [
+                "var json = pm.response.json();",
+                "pm.collectionVariables.set('camiseta_id', json.id);"
+              ],
+              "type": "text/javascript"
+            }
+          }
+        ],
+        "request": {
+          "method": "POST",
+          "header": [{ "key": "Content-Type", "value": "application/json" }],
+          "url": { "raw": "http://localhost/todocamisetas-api/api/camisetas", "protocol": "http", "host": ["localhost"], "path": ["todocamisetas-api", "api", "camisetas"] },
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"titulo\": \"Camiseta Test 202506130001\",\n  \"club\": \"Club Test\",\n  \"pais\": \"Testlandia\",\n  \"tipo\": \"Local\",\n  \"color\": \"Verde\",\n  \"precio\": 10000,\n  \"precio_oferta\": 9000,\n  \"detalles\": \"Prueba\",\n  \"codigo_producto\": \"TESTC202506130001\"\n}"
+          }
+        }
+      },
+      {
+        "name": "GET camiseta creada",
+        "request": {
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "http://localhost/todocamisetas-api/api/camisetas/{{camiseta_id}}",
+            "protocol": "http",
+            "host": ["localhost"],
+            "path": ["todocamisetas-api", "api", "camisetas", "{{camiseta_id}}"]
+          }
+        }
+      },
+      {
+        "name": "PUT actualizar camiseta",
+        "request": {
+          "method": "PUT",
+          "header": [{ "key": "Content-Type", "value": "application/json" }],
+          "url": {
+            "raw": "http://localhost/todocamisetas-api/api/camisetas/{{camiseta_id}}",
+            "protocol": "http",
+            "host": ["localhost"],
+            "path": ["todocamisetas-api", "api", "camisetas", "{{camiseta_id}}"]
+          },
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"color\": \"Azul\"\n}"
+          }
+        }
+      },
+      {
+        "name": "POST nueva talla",
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "exec": [
+                "var json = pm.response.json();",
+                "pm.collectionVariables.set('talla_id', json.id);"
+              ],
+              "type": "text/javascript"
+            }
+          }
+        ],
+        "request": {
+          "method": "POST",
+          "header": [{ "key": "Content-Type", "value": "application/json" }],
+          "url": { "raw": "http://localhost/todocamisetas-api/api/tallas", "protocol": "http", "host": ["localhost"], "path": ["todocamisetas-api", "api", "tallas"] },
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"nombre\": \"TestTalla202506130001\"\n}"
+          }
+        }
+      },
+      {
+        "name": "POST asignar talla a camiseta",
+        "request": {
+          "method": "POST",
+          "header": [{ "key": "Content-Type", "value": "application/json" }],
+          "url": {
+            "raw": "http://localhost/todocamisetas-api/api/camisetas/{{camiseta_id}}/tallas",
+            "protocol": "http",
+            "host": ["localhost"],
+            "path": ["todocamisetas-api", "api", "camisetas", "{{camiseta_id}}", "tallas"]
+          },
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"talla_id\": {{talla_id}},\n  \"stock\": 10\n}"
+          }
+        }
+      },
+      {
+        "name": "GET tallas de camiseta",
+        "request": {
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "http://localhost/todocamisetas-api/api/camisetas/{{camiseta_id}}/tallas",
+            "protocol": "http",
+            "host": ["localhost"],
+            "path": ["todocamisetas-api", "api", "camisetas", "{{camiseta_id}}", "tallas"]
+          }
+        }
+      },
+      {
+        "name": "PUT actualizar stock de talla",
+        "request": {
+          "method": "PUT",
+          "header": [{ "key": "Content-Type", "value": "application/json" }],
+          "url": {
+            "raw": "http://localhost/todocamisetas-api/api/camisetas/{{camiseta_id}}/tallas/{{talla_id}}",
+            "protocol": "http",
+            "host": ["localhost"],
+            "path": ["todocamisetas-api", "api", "camisetas", "{{camiseta_id}}", "tallas", "{{talla_id}}"]
+          },
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"stock\": 20\n}"
+          }
+        }
+      },
+      {
+        "name": "GET precio final para cliente",
+        "request": {
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "http://localhost/todocamisetas-api/api/camisetas/{{camiseta_id}}/precio/1",
+            "protocol": "http",
+            "host": ["localhost"],
+            "path": ["todocamisetas-api", "api", "camisetas", "{{camiseta_id}}", "precio", "1"]
+          }
+        }
+      },
+      {
+        "name": "DELETE relación talla-camiseta",
+        "request": {
+          "method": "DELETE",
+          "header": [],
+          "url": {
+            "raw": "http://localhost/todocamisetas-api/api/camisetas/{{camiseta_id}}/tallas/{{talla_id}}",
+            "protocol": "http",
+            "host": ["localhost"],
+            "path": ["todocamisetas-api", "api", "camisetas", "{{camiseta_id}}", "tallas", "{{talla_id}}"]
+          }
+        }
+      },
+      {
+        "name": "DELETE talla",
+        "request": {
+          "method": "DELETE",
+          "header": [],
+          "url": {
+            "raw": "http://localhost/todocamisetas-api/api/tallas/{{talla_id}}",
+            "protocol": "http",
+            "host": ["localhost"],
+            "path": ["todocamisetas-api", "api", "tallas", "{{talla_id}}"]
+          }
+        }
+      },
+      {
+        "name": "DELETE camiseta",
+        "request": {
+          "method": "DELETE",
+          "header": [],
+          "url": {
+            "raw": "http://localhost/todocamisetas-api/api/camisetas/{{camiseta_id}}",
+            "protocol": "http",
+            "host": ["localhost"],
+            "path": ["todocamisetas-api", "api", "camisetas", "{{camiseta_id}}"]
+          }
+        }
+      }
+    ],
+    "event": [
+      {
+        "listen": "prerequest",
+        "script": {
+          "exec": [
+            "pm.collectionVariables.set('timestamp', '202506130001');"
+          ],
+          "type": "text/javascript"
+        }
+      }
+    ]
+  }
